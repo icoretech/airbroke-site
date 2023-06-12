@@ -19,8 +19,8 @@ jobs:
       - name: AWS CLI v2
         uses: imehedi/actions-awscli-v2@latest
         with:
-            args: s3 sync out s3://${{ secrets.AWS_BUCKET }} --delete --endpoint-url ${{ secrets.AWS_ENDPOINT }}
+            args: s3 sync out s3://${{ secrets.AWS_BUCKET }} --delete --endpoint-url ${{ vars.SC_AMS_AWS_ENDPOINT }}
         env:
-            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            AWS_ACCESS_KEY_ID: ${{ secrets.SC_AWS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.SC_AWS_SECRET_ACCESS_KEY }}
             AWS_DEFAULT_REGION: "nl-ams"
