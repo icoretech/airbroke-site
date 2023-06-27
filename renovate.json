@@ -4,6 +4,7 @@
     "config:base"
   ],
   "prHourlyLimit": 0,
+  "ignoreTests": true,
   "packageRules": [
     {
       "matchUpdateTypes": [
