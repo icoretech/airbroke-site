@@ -4,12 +4,6 @@
     "config:base"
   ],
   "prHourlyLimit": 0,
-  "pin": {
-    "schedule": [
-      "at any time"
-    ],
-    "automerge": true
-  },
   "packageRules": [
     {
       "matchUpdateTypes": [
