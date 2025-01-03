@@ -14,12 +14,6 @@
         "digest"
       ],
       "automerge": true
-    },
-    {
-      "packageNames": [
-        "node"
-      ],
-      "enabled": false
     }
   ]
 }
