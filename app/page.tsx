@@ -8,8 +8,8 @@ import logo from '@/public/logo.svg';
 
 export default function Home() {
   return (
-    <div className="h-full bg-gray-900">
-      <div className="relative isolate overflow-hidden bg-gray-900">
+    <div className="h-full bg-background text-foreground">
+      <div className="relative isolate overflow-hidden bg-background">
         <Background />
         <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
           <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
@@ -21,10 +21,10 @@ export default function Home() {
                 </span>
               </Link>
             </div>
-            <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl">
+            <h1 className="mt-10 text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
               Hello, welcome to Airbroke
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-300">
+            <p className="mt-6 text-lg leading-8 text-muted-foreground">
               Self-hosted, Cost-effective, Open Source Error Tracking for a Sustainable Startup Journey.
             </p>
             <div className="mt-10 flex items-center gap-x-6">
@@ -34,7 +34,7 @@ export default function Home() {
               >
                 Setup Guide
               </a>
-              <Link href="https://github.com/icoretech/airbroke/blob/main/README.md" className="text-sm font-semibold leading-6 text-white">
+              <Link href="https://github.com/icoretech/airbroke/blob/main/README.md" className="text-sm font-semibold leading-6 text-foreground">
                 Learn more <span aria-hidden="true">→</span>
               </Link>
             </div>
@@ -50,10 +50,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <footer className="bg-gray-900">
+      <footer className="bg-background">
         <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
           <div className="flex justify-center space-x-6 md:order-2">
-            <Link href="https://github.com/icoretech/airbroke" className="text-white hover:text-gray-500">
+            <Link href="https://github.com/icoretech/airbroke" className="text-foreground hover:text-muted-foreground">
               <span className="sr-only">github</span>
               <FaGithub className="h-6 w-6" aria-hidden="true" />
             </Link>

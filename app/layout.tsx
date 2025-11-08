@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="h-full bg-airbroke-900">
+    <html lang="en" className="h-full">
       <body className={`h-full antialiased scrollbar-none ${inter.className}`}>{children}</body>
     </html>
   )
