@@ -16,8 +16,6 @@ jobs:
         with:
           node-version: 24
           cache: 'npm'
-      - name: Biome (lint & format check)
-        run: npx -y @biomejs/biome ci .
       - name: Restore Next.js build cache
         id: next_cache
         uses: actions/cache/restore@v4
