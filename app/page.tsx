@@ -53,13 +53,7 @@ airbrake.notify(new Error('Hello from Airbroke'))`;
             </p>
             <div className="mt-8 flex items-center gap-3">
               <Button asChild>
-                <a
-                  href="https://github.com/icoretech/airbroke/blob/main/README.md#deployment-options"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Setup Guide
-                </a>
+                <Link href="/projects">Get Started</Link>
               </Button>
               <Button asChild variant="outline">
                 <a
@@ -103,20 +97,43 @@ airbrake.notify(new Error('Hello from Airbroke'))`;
           </h2>
           <div className="mt-6 space-y-4">
             <details className="group rounded-lg border border-white/10 bg-card p-4 open:bg-airbroke-700/20">
-              <summary className="cursor-pointer list-none text-lg font-medium text-foreground">
-                Is Airbroke compatible with Airbrake clients?
+              <summary className="cursor-pointer list-none text-base font-medium text-foreground">
+                Is Airbroke production-ready?
               </summary>
-              <p className="mt-2 text-muted-foreground">
-                Yes. Airbroke implements an Airbrake-compatible API. Point your 
-                Airbrake client to your Airbroke host, and it will work.
+              <p className="mt-2 text-sm text-muted-foreground">
+                Airbroke is in active development. Use in production at your
+                discretion while we work toward a stable release.
               </p>
             </details>
             <details className="group rounded-lg border border-white/10 bg-card p-4 open:bg-airbroke-700/20">
-              <summary className="cursor-pointer list-none text-lg font-medium text-foreground">
-                What databases are supported?
+              <summary className="cursor-pointer list-none text-base font-medium text-foreground">
+                What are the requirements?
               </summary>
-              <p className="mt-2 text-muted-foreground">
-                Postgres. Airbroke purposely keeps infra simple and affordable.
+              <p className="mt-2 text-sm text-muted-foreground">
+                Node.js 20/22/24+, PostgreSQL 15+, ~300MB RAM, and ~1 CPU core.
+              </p>
+            </details>
+            <details className="group rounded-lg border border-white/10 bg-card p-4 open:bg-airbroke-700/20">
+              <summary className="cursor-pointer list-none text-base font-medium text-foreground">
+                How do I send errors?
+              </summary>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Create a project to obtain an API key, then point your Airbrake
+                client to your Airbroke host. You can also POST JSON directly to{" "}
+                <code className="rounded bg-muted px-1 py-0.5">
+                  /api/v3/notices?key=YOUR_API_KEY
+                </code>
+                .
+              </p>
+            </details>
+            <details className="group rounded-lg border border-white/10 bg-card p-4 open:bg-airbroke-700/20">
+              <summary className="cursor-pointer list-none text-base font-medium text-foreground">
+                Which OAuth providers are supported?
+              </summary>
+              <p className="mt-2 text-sm text-muted-foreground">
+                GitHub, Google, Apple, GitLab, Keycloak, Authentik, Cognito,
+                Microsoft Entra ID, Slack, Atlassian, Okta and more via Auth.js
+                providers.
               </p>
             </details>
           </div>
@@ -124,15 +141,23 @@ airbrake.notify(new Error('Hello from Airbroke'))`;
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 bg-background py-8">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 text-sm text-muted-foreground lg:px-8">
-          <div>
-            <FooterCredits />
-          </div>
-          <div>
-            <a href="https://github.com/icoretech/airbroke" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-foreground">
-              <FaGithub /> GitHub
+      <footer className="border-t border-white/5 bg-background">
+        <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
+          <div className="flex justify-center space-x-6 md:order-2">
+            <a
+              href="https://github.com/icoretech/airbroke"
+              className="text-foreground hover:text-muted-foreground"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="sr-only">github</span>
+              <FaGithub className="h-6 w-6" aria-hidden="true" />
             </a>
+          </div>
+          <div className="mt-8 md:order-1 md:mt-0">
+            <p className="text-center text-xs leading-5 text-foreground">
+              <FooterCredits />
+            </p>
           </div>
         </div>
       </footer>
