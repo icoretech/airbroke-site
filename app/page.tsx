@@ -53,7 +53,9 @@ airbrake.notify(new Error('Hello from Airbroke'))`;
               </p>
               <div className="mt-8 flex items-center gap-3">
                 <Button asChild>
-                  <Link href="/projects">Get Started</Link>
+                  <Link href="https://github.com/icoretech/airbroke/blob/main/README.md">
+                    Get Started
+                  </Link>
                 </Button>
                 <Button asChild variant="outline">
                   <a
