@@ -1,9 +1,8 @@
-// postcss.config.js
-
+// postcss.config.mjs (Tailwind v4)
 /** @type {import('postcss-load-config').Config} */
 const config = {
   plugins: {
-    tailwindcss: {},
+    "@tailwindcss/postcss": {},
   },
 };
 
