@@ -31,7 +31,9 @@ jobs:
       - run: npm ci
       - run: npm run build
       - name: Save Next.js build cache
-        if: always()
+        # Only save if we didn't restore the exact primary key
+        # (miss or restored from a restore-key prefix)
+        if: ${{ steps.next_cache.outputs.cache-matched-key != steps.next_cache.outputs.cache-primary-key }}
         uses: actions/cache/save@v4
         with:
           path: .next/cache
