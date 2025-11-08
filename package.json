@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "npx -y @biomejs/biome lint .",
+    "format": "npx -y @biomejs/biome format . --write",
+    "check": "npx -y @biomejs/biome check ."
   },
   "dependencies": {
     "next": "^16.0.1",
