@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
-import PageBackground from "@/components/PageBackground";
 import { CodeBlock } from "@/components/CodeBlock";
 import FooterCredits from "@/components/FooterCredits";
+import PageBackground from "@/components/PageBackground";
 import { Button } from "@/components/ui/button";
 
 export default function HomePage() {
@@ -29,63 +29,63 @@ airbrake.notify(new Error('Hello from Airbroke'))`;
       {/* Hero */}
       <div className="relative isolate overflow-hidden">
         <PageBackground>
-        <div className="mx-auto max-w-7xl px-6 pb-20 pt-16 sm:pb-28 lg:flex lg:items-center lg:gap-12 lg:px-8 lg:py-28">
-          {/* Left: brand + copy + CTAs */}
-          <div className="mx-auto max-w-2xl shrink-0 lg:mx-0 lg:max-w-xl">
-            <div className="flex items-center">
-              <Image
-                src="/logo.svg"
-                alt="Airbroke"
-                width={463}
-                height={338}
-                priority
-                className="h-10 w-auto md:h-12"
-              />
-            </div>
-            <h1 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
-              Error tracking that fits your stack
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              <strong>Airbroke</strong> ingests errors via an
-              Airbrake-compatible API, stores them in Postgres, and gives you a
-              modern, low-overhead UI with AI assistance, HTTP replay, and
-              occurrence charts.
-            </p>
-            <div className="mt-8 flex items-center gap-3">
-              <Button asChild>
-                <Link href="/projects">Get Started</Link>
-              </Button>
-              <Button asChild variant="outline">
+          <div className="mx-auto max-w-7xl px-6 pb-20 pt-16 sm:pb-28 lg:flex lg:items-center lg:gap-12 lg:px-8 lg:py-28">
+            {/* Left: brand + copy + CTAs */}
+            <div className="mx-auto max-w-2xl shrink-0 lg:mx-0 lg:max-w-xl">
+              <div className="flex items-center">
+                <Image
+                  src="/logo.svg"
+                  alt="Airbroke"
+                  width={463}
+                  height={338}
+                  priority
+                  className="h-10 w-auto md:h-12"
+                />
+              </div>
+              <h1 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
+                Error tracking that fits your stack
+              </h1>
+              <p className="mt-6 text-lg leading-8 text-muted-foreground">
+                <strong>Airbroke</strong> ingests errors via an
+                Airbrake-compatible API, stores them in Postgres, and gives you
+                a modern, low-overhead UI with AI assistance, HTTP replay, and
+                occurrence charts.
+              </p>
+              <div className="mt-8 flex items-center gap-3">
+                <Button asChild>
+                  <Link href="/projects">Get Started</Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <a
+                    href="https://github.com/icoretech/airbroke"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaGithub className="mr-2" /> GitHub
+                  </a>
+                </Button>
                 <a
-                  href="https://github.com/icoretech/airbroke"
+                  href="https://github.com/icoretech/airbroke/releases"
+                  className="text-sm font-semibold leading-6 text-foreground"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <FaGithub className="mr-2" /> GitHub
+                  Releases →
                 </a>
-              </Button>
-              <a
-                href="https://github.com/icoretech/airbroke/releases"
-                className="text-sm font-semibold leading-6 text-foreground"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Releases →
-              </a>
+              </div>
             </div>
-          </div>
 
-          {/* Right: single quickstart code */}
-          <div className="mx-auto mt-12 w-full max-w-2xl lg:mt-0 lg:flex-1">
-            <div className="rounded-xl border border-white/10 bg-card/70 p-4 shadow-sm ring-1 ring-white/5 backdrop-blur">
-              <CodeBlock
-                language="javascript"
-                filename="quickstart.js"
-                code={jsSnippet}
-              />
+            {/* Right: single quickstart code */}
+            <div className="mx-auto mt-12 w-full max-w-2xl lg:mt-0 lg:flex-1">
+              <div className="rounded-xl border border-white/10 bg-card/70 p-4 shadow-sm ring-1 ring-white/5 backdrop-blur">
+                <CodeBlock
+                  language="javascript"
+                  filename="quickstart.js"
+                  code={jsSnippet}
+                />
+              </div>
             </div>
           </div>
-        </div>
         </PageBackground>
       </div>
 

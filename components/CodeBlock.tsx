@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { FaCheck } from 'react-icons/fa';
-import { HiClipboard } from 'react-icons/hi';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import React from "react";
+import { FaCheck } from "react-icons/fa";
+import { HiClipboard } from "react-icons/hi";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 type CodeBlockProps = {
   language: string;
@@ -13,7 +13,12 @@ type CodeBlockProps = {
   highlightLines?: number[];
 };
 
-export const CodeBlock = ({ language, code, filename, highlightLines = [] }: CodeBlockProps) => {
+export const CodeBlock = ({
+  language,
+  code,
+  filename,
+  highlightLines = [],
+}: CodeBlockProps) => {
   const [copied, setCopied] = React.useState(false);
 
   const copyToClipboard = async () => {
@@ -28,6 +33,7 @@ export const CodeBlock = ({ language, code, filename, highlightLines = [] }: Cod
         <div className="mb-2 flex items-center justify-between text-xs text-zinc-400">
           <span>{filename}</span>
           <button
+            type="button"
             onClick={copyToClipboard}
             className="flex items-center gap-1 text-xs text-zinc-400 hover:text-zinc-200"
           >
@@ -45,14 +51,16 @@ export const CodeBlock = ({ language, code, filename, highlightLines = [] }: Cod
           const isHighlighted = highlightLines.includes(lineNumber);
           return {
             style: {
-              backgroundColor: isHighlighted ? 'rgba(255,255,255,0.1)' : 'transparent',
+              backgroundColor: isHighlighted
+                ? "rgba(255,255,255,0.1)"
+                : "transparent",
             },
           };
         }}
         customStyle={{
           margin: 0,
-          background: 'transparent',
-          fontSize: '0.875rem',
+          background: "transparent",
+          fontSize: "0.875rem",
         }}
       >
         {code}
@@ -60,4 +68,3 @@ export const CodeBlock = ({ language, code, filename, highlightLines = [] }: Cod
     </div>
   );
 };
-

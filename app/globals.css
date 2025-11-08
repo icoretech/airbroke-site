@@ -36,16 +36,16 @@
   --color-sidebar-ring: hsl(var(--sidebar-ring));
 
   /* Keep legacy named palettes for compatibility */
-  --color-airbroke-50: #E5E7EB;
-  --color-airbroke-100: #CBD5E1;
-  --color-airbroke-200: #9AA5B1;
+  --color-airbroke-50: #e5e7eb;
+  --color-airbroke-100: #cbd5e1;
+  --color-airbroke-200: #9aa5b1;
   --color-airbroke-300: #718096;
-  --color-airbroke-400: #4A5568;
-  --color-airbroke-500: #2D3748;
-  --color-airbroke-600: #1A202C;
+  --color-airbroke-400: #4a5568;
+  --color-airbroke-500: #2d3748;
+  --color-airbroke-600: #1a202c;
   --color-airbroke-700: #171923;
   --color-airbroke-800: #192231;
-  --color-airbroke-900: #1F2937;
+  --color-airbroke-900: #1f2937;
 
   --color-gravity-50: #1a202c;
   --color-gravity-100: #181d28;
@@ -99,15 +99,15 @@
   }
   .dark {
     /* Dark theme mapped to Airbroke with purple accent */
-    --background: 221 39% 11%;   /* close to Tailwind gray-900 (#111827) */
-    --foreground: 213 27% 84%;   /* #CBD5E1 */
+    --background: 221 39% 11%; /* close to Tailwind gray-900 (#111827) */
+    --foreground: 213 27% 84%; /* #CBD5E1 */
     --card: 221 39% 13%;
     --card-foreground: 213 27% 84%;
     --popover: 221 39% 13%;
     --popover-foreground: 213 27% 84%;
-    --primary: 239 84% 67%;      /* tailwind indigo-500-like */
+    --primary: 239 84% 67%; /* tailwind indigo-500-like */
     --primary-foreground: 0 0% 100%;
-    --secondary: 230 21% 11%;    /* #171923 */
+    --secondary: 230 21% 11%; /* #171923 */
     --secondary-foreground: 213 27% 84%;
     --muted: 215 15% 22%;
     --muted-foreground: 213 15% 65%;
@@ -124,9 +124,9 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
     /* Sidebar (dark) tuned to Airbroke 800 for 1:1 look */
-    --sidebar-background: 218 32% 15%;   /* ≈ #192231 */
-    --sidebar-foreground: 213 27% 84%;   /* ≈ #CBD5E1 */
-    --sidebar-primary: 239 84% 67%;      /* purple accent for focus/ring */
+    --sidebar-background: 218 32% 15%; /* ≈ #192231 */
+    --sidebar-foreground: 213 27% 84%; /* ≈ #CBD5E1 */
+    --sidebar-primary: 239 84% 67%; /* purple accent for focus/ring */
     --sidebar-primary-foreground: 0 0% 100%;
     /* Sidebar hover: darker, richer purple */
     --sidebar-accent: 243 70% 56%;
@@ -134,7 +134,7 @@
     --sidebar-accent-grad-start: 243 70% 55%;
     --sidebar-accent-grad-end: 243 70% 57%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 218 23% 18%;       /* soft separator ~ white/5 feel */
+    --sidebar-border: 218 23% 18%; /* soft separator ~ white/5 feel */
     --sidebar-ring: 239 84% 67%;
   }
 }
@@ -154,12 +154,16 @@
   scrollbar-width: none;
 }
 /* Hide webkit scrollbar when this utility is applied */
-.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
 
 /* Sidebar hover/focus/active styles (shadcn sidebar data attributes) */
 @layer utilities {
   /* Ensure all shadcn buttons show hand cursor without editing components/ui */
-  [data-slot="button"] { cursor: pointer; }
+  [data-slot="button"] {
+    cursor: pointer;
+  }
   /* Shared gradient button utility to ensure consistent hover/active */
   .btn-gradient {
     background-image: linear-gradient(
@@ -169,10 +173,16 @@
     );
     color: white;
     cursor: pointer;
-    transition: filter 150ms ease, opacity 150ms ease;
+    transition:
+      filter 150ms ease,
+      opacity 150ms ease;
   }
-  .btn-gradient:hover { filter: brightness(1.08); }
-  .btn-gradient:active { filter: brightness(0.98) saturate(1.02); }
+  .btn-gradient:hover {
+    filter: brightness(1.08);
+  }
+  .btn-gradient:active {
+    filter: brightness(0.98) saturate(1.02);
+  }
 
   /* Apply subtle horizontal gradient across hover, focus-visible and active */
   [data-sidebar="menu-button"]:hover,
