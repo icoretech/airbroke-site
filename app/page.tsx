@@ -52,28 +52,16 @@ airbrake.notify(new Error('Hello from Airbroke'))`;
                 occurrence charts.
               </p>
               <div className="mt-8 flex items-center gap-3">
-                <Button asChild>
-                  <Link href="https://github.com/icoretech/airbroke/blob/main/README.md">
-                    Get Started
-                  </Link>
-                </Button>
                 <Button asChild variant="outline">
-                  <a
+                  <Link
                     href="https://github.com/icoretech/airbroke"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <FaGithub className="mr-2" /> GitHub
-                  </a>
+                    <FaGithub />
+                    <span>GitHub →</span>
+                  </Link>
                 </Button>
-                <a
-                  href="https://github.com/icoretech/airbroke/releases"
-                  className="text-sm font-semibold leading-6 text-foreground"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Releases →
-                </a>
               </div>
             </div>
 
