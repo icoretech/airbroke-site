@@ -18,7 +18,7 @@ jobs:
           cache: 'npm'
       - name: Restore Next.js build cache
         id: next_cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           # Persist Turbopack/Next.js incremental build cache between runs
           path: .next/cache
@@ -32,7 +32,7 @@ jobs:
         # Only save if we didn't restore the exact primary key
         # (miss or restored from a restore-key prefix)
         if: ${{ steps.next_cache.outputs.cache-matched-key != steps.next_cache.outputs.cache-primary-key }}
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: .next/cache
           key: ${{ steps.next_cache.outputs.cache-primary-key }}
