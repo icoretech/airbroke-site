@@ -33,3 +33,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# operator evidence and Python checks
+.omo/
+.local/
+__pycache__/
+.pytest_cache/

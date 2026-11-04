@@ -1,17 +1,27 @@
-name: Upload to S3
+name: Publish static site
 
 on:
   push:
     branches:
       - main
+concurrency:
+  group: static-site-production
+  cancel-in-progress: false
+
 env:
   NEXT_TELEMETRY_DISABLED: 1
 
 jobs:
   upload:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - name: Verify publication boundary
+        run: |
+          aws --version
+          uv run --python 3.12 --with pytest==9.0.2 python -m pytest scripts/tests -q
       - uses: actions/setup-node@v7
         with:
           node-version: 24
@@ -29,6 +39,8 @@ jobs:
             ${{ runner.os }}-nextjs-
       - run: npm ci
       - run: npm run build
+        env:
+          NODE_ENV: production
       - name: Save Next.js build cache
         # Only save if we didn't restore the exact primary key
         # (miss or restored from a restore-key prefix)
@@ -37,11 +49,25 @@ jobs:
         with:
           path: ${{ github.workspace }}/.next/cache
           key: ${{ steps.next_cache.outputs.cache-primary-key }}
-      - name: AWS CLI v2
-        uses: imehedi/actions-awscli-v2@latest
-        with:
-            args: s3 sync out s3://${{ vars.SC_ARTIFACTS_BUCKET }} --delete --endpoint-url ${{ vars.SC_AMS_AWS_ENDPOINT }}
+      - name: Publish verified MEGA release
         env:
-            AWS_ACCESS_KEY_ID: ${{ secrets.SC_AWS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.SC_AWS_SECRET_ACCESS_KEY }}
-            AWS_DEFAULT_REGION: "nl-ams"
+          AWS_ACCESS_KEY_ID: ${{ secrets.MEGA_SITE_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.MEGA_SITE_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ vars.MEGA_SITE_REGION }}
+          MEGA_SITE_BUCKET: ${{ vars.MEGA_SITE_BUCKET }}
+          MEGA_SITE_ENDPOINT: ${{ vars.MEGA_SITE_ENDPOINT }}
+        run: |
+          set -euo pipefail
+          : "${AWS_ACCESS_KEY_ID:?missing MEGA site access key}"
+          : "${AWS_SECRET_ACCESS_KEY:?missing MEGA site secret key}"
+          : "${AWS_DEFAULT_REGION:?missing MEGA region}"
+          : "${MEGA_SITE_BUCKET:?missing MEGA site bucket}"
+          : "${MEGA_SITE_ENDPOINT:?missing MEGA endpoint}"
+          docker run --rm --cpus 2 --memory 512m \
+            --cap-drop ALL --security-opt no-new-privileges \
+            --env AWS_ACCESS_KEY_ID --env AWS_SECRET_ACCESS_KEY \
+            --env AWS_DEFAULT_REGION \
+            --volume "$GITHUB_WORKSPACE:/workspace:ro" --workdir /workspace \
+            --entrypoint python3 \
+            masterkain/postgresql-backup-s3:18.3.3@sha256:5e29be3862e332b0552fb4a0e9b465f04e03aac935d50749bb85d848523406b6 \
+            scripts/publish-site.py out "$MEGA_SITE_BUCKET" "$MEGA_SITE_ENDPOINT"

@@ -1,0 +1,22 @@
+target-version = "py311"
+
+[lint]
+select = ["ALL"]
+ignore = [
+  "COM812", # Formatter owns trailing commas.
+  "CPY001", # Do not invent copyright statements for operator utilities.
+  "D203", "D213", # Use the compatible PEP 257 docstring convention.
+  "INP001", # Standalone scripts, not an importable distribution.
+]
+
+[lint.per-file-ignores]
+"{publish-site,live_site}.py" = [
+  "EM101", "EM102", "TRY003", # CLI validation messages belong to the failure site.
+  "S603", # AWS is invoked without a shell; endpoint and bucket are parsed first.
+  "T201", # This CLI intentionally emits one result/error receipt.
+]
+"tests/*.py" = [
+  "D", "S101", "PLR2004", # Assertion-based fixture contracts and case names are the documentation.
+  "S603", # Exercises the real Python publisher and AWS CLI without a shell.
+  "TC003", # pytest resolves fixture annotations at runtime.
+]
