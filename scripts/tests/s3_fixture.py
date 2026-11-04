@@ -62,8 +62,8 @@ class Bucket:
         """Return stored object metadata, including the missing-object status."""
         return (200, len(self.objects[key])) if key in self.objects else (404, 0)
 
-    def server(self) -> ThreadingHTTPServer:
-        """Serve S3 operations and deliberate transport faults."""
+    def handler_type(self) -> type[BaseHTTPRequestHandler]:
+        """Bind the HTTP handler to this isolated bucket."""
         bucket = self
 
         class Handler(BaseHTTPRequestHandler):
@@ -73,6 +73,7 @@ class Bucket:
                 self.send_response(code)
                 self.send_header("Content-Length", str(len(body)))
                 self.send_header("Content-Type", content_type)
+                self.send_header("ETag", '"fixture"')
                 self.send_header("Last-Modified", "Thu, 01 Jan 2026 00:00:00 GMT")
                 self.end_headers()
                 self.wfile.write(body)
@@ -144,4 +145,8 @@ class Bucket:
             def log_message(self, message_format: str, *args: str) -> None:
                 """Keep fixture HTTP access logs out of assertion output."""
 
-        return ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        return Handler
+
+    def server(self) -> ThreadingHTTPServer:
+        """Serve S3 operations and deliberate transport faults."""
+        return ThreadingHTTPServer(("127.0.0.1", 0), self.handler_type())

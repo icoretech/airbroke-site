@@ -112,6 +112,8 @@ def publish(source: Path, destination: Destination) -> str:
 s3 =
     addressing_style = path
     signature_version = s3v4
+    preferred_transfer_client = classic
+    max_concurrent_requests = 4
     multipart_threshold = 8MB
     multipart_chunksize = 8MB
 """,
@@ -124,7 +126,7 @@ s3 =
             "AWS_DEFAULT_REGION": os.environ.get(
                 "AWS_DEFAULT_REGION", "eu-luxembourg-1"
             ),
-            "AWS_MAX_ATTEMPTS": "3",
+            "AWS_MAX_ATTEMPTS": "1",
             "AWS_EC2_METADATA_DISABLED": "true",
         }
         command = [

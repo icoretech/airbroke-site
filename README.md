@@ -32,10 +32,17 @@ most 10,000 files and 512 MiB. A sorted SHA256 manifest determines the immutable
 `airbroke/releases/<manifest-sha256>/` prefix. The publisher downloads the whole
 release and compares every byte before updating `airbroke/live/`. Support files
 are uploaded and read back first; `index.html` is replaced only after they pass
-verification. Failed support transfers or an index upload failure preserve the
-previous HTML entrypoint. Old hashed assets and archived releases remain
+verification. A failure before the index upload leaves the previous HTML
+entrypoint unchanged. Old hashed assets and archived releases remain
 available; this publisher performs no retention deletion. The audit marker
 `airbroke/current` is written after the live index.
+
+Transfers use the classic AWS CLI client with 8 MiB multipart parts and four
+concurrent transfer requests per process. `AWS_MAX_ATTEMPTS=1` prevents
+replaying a part that MEGA may already have accepted before a failed response.
+A failed multipart transfer is aborted and publication stops; retry the whole
+publication to start a fresh upload session. The archive phase uses one client;
+the four live-file workers can issue up to 16 multipart requests in total.
 
 The public origin uses an authenticated S3 gateway over the stable live prefix;
 public object URLs are not required. All gateway replicas see the same objects,
