@@ -1,6 +1,0 @@
-{
-  "include": ["publish-site.py", "live_site.py"],
-  "pythonVersion": "3.11",
-  "typeCheckingMode": "all",
-  "executionEnvironments": [{"root": "."}]
-}

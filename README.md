@@ -14,52 +14,21 @@ repository.
 
 ## deployment
 
-The production workflow builds a static export with `NODE_ENV=production` and
-publishes it into a private MEGA S4 bucket. Configure these repository-scoped
-GitHub Actions values before enabling that workflow:
+The [publication workflow](.github/workflows/release.yml) builds the current
+source with Node.js 24 and `NODE_ENV=production`, then publishes the Next.js
+static export from `out/` to GitHub Pages. Site-related pushes to `main` trigger
+publication; the workflow can also be started manually on `main`.
 
-| kind | name | purpose |
-| --- | --- | --- |
-| secret | `MEGA_SITE_ACCESS_KEY_ID` | site workload access key |
-| secret | `MEGA_SITE_SECRET_ACCESS_KEY` | site workload secret key |
-| variable | `MEGA_SITE_BUCKET` | private site bucket |
-| variable | `MEGA_SITE_ENDPOINT` | explicit regional S3 API endpoint |
-| variable | `MEGA_SITE_REGION` | corresponding signing region |
+In repository **Settings → Pages**, select **GitHub Actions** as the publishing
+source and set the custom domain to `airbroke.icorete.ch`. Configure the domain
+in Pages before pointing its DNS record to GitHub Pages, then enable HTTPS.
+The public site remains at [airbroke.icorete.ch](https://airbroke.icorete.ch).
 
-`scripts/publish-site.py` snapshots the export, rejects symlinks and unsafe
-paths, and requires nonempty `index.html` and `404.html`. Releases contain at
-most 10,000 files and 512 MiB. A sorted SHA256 manifest determines the immutable
-`airbroke/releases/<manifest-sha256>/` prefix. The publisher downloads the whole
-release and compares every byte before updating `airbroke/live/`. Support files
-are uploaded and read back first; `index.html` is replaced only after they pass
-verification. A failure before the index upload leaves the previous HTML
-entrypoint unchanged. Old hashed assets and archived releases remain
-available; this publisher performs no retention deletion. The audit marker
-`airbroke/current` is written after the live index.
+The build job has read-only repository access. The deployment job uses the
+`github-pages` environment with `pages: write` and `id-token: write`. It deploys
+the artifact produced by its own build attempt, after checking that the index
+and error pages exist. A newer run supersedes an unfinished older publication.
 
-Transfers use the classic AWS CLI client with 8 MiB multipart parts and four
-concurrent transfer requests per process. `AWS_MAX_ATTEMPTS=1` prevents
-replaying a part that MEGA may already have accepted before a failed response.
-A failed multipart transfer is aborted and publication stops; retry the whole
-publication to start a fresh upload session. The archive phase uses one client;
-the four live-file workers can issue up to 16 multipart requests in total.
-
-The public origin uses an authenticated S3 gateway over the stable live prefix;
-public object URLs are not required. All gateway replicas see the same objects,
-and old hashed assets remain available to cached HTML. `_next/static/` assets
-use immutable caching; mutable files use `no-cache`. Publication is serialized.
-Repository credentials are separate from organization-wide storage credentials.
-
-This is a single-entrypoint publication contract, not a transaction across the
-whole site. Mutable support files such as `index.txt` and `404.html` can change
-before the HTML entrypoint. The current presentation site has one page; adding
-independently navigable pages requires revisiting that deployment contract.
-
-Run the boundary tests with Python 3.11+, AWS CLI v2 and pytest:
-
-```sh
-uv run --with pytest==9.0.2 python -m pytest scripts/tests -q
-```
-
-The tests invoke the real publisher and AWS CLI against an isolated HTTP S3
-fixture, including corrupt downloads, denied uploads and unsafe exports.
+Publishing uses GitHub's workflow token and OIDC; no S3 credentials, storage
+bucket or cluster gateway is required. Keep the site compatible with static
+export: server-only Next.js features require a separate hosting decision.
