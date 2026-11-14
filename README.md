@@ -15,7 +15,7 @@ repository.
 ## deployment
 
 The [publication workflow](.github/workflows/release.yml) builds the current
-source with Node.js 24 and `NODE_ENV=production`, then publishes the Next.js
+source with Node.js 26 and `NODE_ENV=production`, then publishes the Next.js
 static export from `out/` to GitHub Pages. Site-related pushes to `main` trigger
 publication; the workflow can also be started manually on `main`.
 
