@@ -4,8 +4,9 @@
   "biome.requireConfiguration": true,
   // Prefer the project's Biome binary (multi-arch installed via Yarn)
   "biome.lsp.bin": "${workspaceFolder}/node_modules/.bin/biome",
-  // Use the project's TypeScript SDK
-  "typescript.tsdk": "node_modules/typescript/lib",
+  // Use the project's native TypeScript 7 language server
+  "js/ts.experimental.useTsgo": true,
+  "js/ts.tsdk.path": "node_modules/typescript",
 
   // Make Biome the default formatter for TS/JS/JSON in this workspace
   "editor.formatOnSave": true,

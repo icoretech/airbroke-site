@@ -12,10 +12,22 @@ If you have any questions or feedback, feel free to
 [open an issue](https://github.com/icoretech/airbroke/issues/new) on the Airbroke
 repository.
 
+## development
+
+Use Node.js 26.13.1 and its bundled npm 11.20.0. Install dependencies with
+`npm ci`, then run `npm run dev` for local development. `npm run build` runs
+TypeScript 7's native compiler through Next.js before producing the static
+export; type errors fail the build.
+
+For VS Code, install Microsoft's
+[TypeScript 7 extension](https://marketplace.visualstudio.com/items?itemName=TypeScriptTeam.native-preview).
+The workspace settings select the installed `typescript` package's native
+language server rather than the removed JavaScript SDK.
+
 ## deployment
 
 The [publication workflow](.github/workflows/release.yml) builds the current
-source with Node.js 26 and `NODE_ENV=production`, then publishes the Next.js
+source with Node.js 26.13.1 and `NODE_ENV=production`, then publishes the Next.js
 static export from `out/` to GitHub Pages. Site-related pushes to `main` trigger
 publication; the workflow can also be started manually on `main`.
 
